@@ -1,0 +1,23 @@
+
+
+#approach 1
+#count bases in a compressed file, use cat if the file is uncompressed fastq
+
+zcat name.fq.gz | paste - - - - | cut -f 2 | tr -d '\n' | wc -c
+
+#here, zcat - 
+#paste cut does this tr does wc -c 
+
+#approach 2 using awk
+awk 'NR%4==2 {sum += length($0)} END {print sum}' data.fq
+
+
+#a for loop can also be used to batch process samples
+
+for fname in *.gz; do
+  echo "Processing $fname"
+  echo "..$fname has `zcat $fname | paste - - - - | cut -f 2 | tr -d '\n' | wc -c` bases"
+done
+
+#approach 3 using expr
+expr $(cat 1a1.fq| wc -l) / 4
