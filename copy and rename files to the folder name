@@ -1,0 +1,16 @@
+#a script to copy same-named files from a folder to a different folder renamed as the folder name
+# this script is useful to have assembled/sam/bam or other files in one folder
+
+for fname in /path/to/the/files/*/contigs.fasta ; do 
+fldr_name=$(basename $(dirname $fname))
+cp $fname /path/to/the/new/directory/$fldr_name.contigs.fasta
+done
+
+#another approach, more or less the same thing
+for fname in /path/to/the/files/*/contigs.fasta; do
+	dir_name=${fname%/*}
+	dir_name=${dir_name##*/}
+	new_file="${dir_name}_contigs.fasta"
+	echo $new_file
+	cp -i path/to/$dir_name/contigs.fasta /path/to/the/new/directory/$new_file
+	done;
