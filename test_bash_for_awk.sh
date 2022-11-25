@@ -1,3 +1,6 @@
+#this is a script to separate high quality and medium quality bins from a bin folder based on checkm results 
+#prerequisites are that you need to have all the checkm output in a single folder 
+
 #making tsv files
 
 mkdir /media/biostud/data/Amulya/checkm_output/checkm_all_sample_tsv/converted_to_hq_bins
@@ -32,5 +35,12 @@ for tsv_name in /media/biostud/data/Amulya/checkm_output/checkm_all_sample_tsv/c
 for file in $(awk '{ print $1 }' /media/biostud/data/Amulya/checkm_output/checkm_all_sample_tsv/converted_to_hq_bins/*.hq_bins.tsv); do 
 	for final_name in $(find /media/biostud/data/Amulya/metabat2 -name $file.fa); do
 	cp $final_name /media/biostud/data/Amulya/metabat2/high_quality_bins_all_samples; done
+done
+
+#copying medium quality bins into separate folder
+
+for file in $(awk '{ print $1 }' /media/biostud/data/Amulya/checkm_output/checkm_all_sample_tsv/converted_to_medium_bins/*.medium_bins.tsv); do 
+	for final_name in $(find /media/biostud/data/Amulya/metabat2 -name $file.fa); do
+	cp $final_name /media/biostud/data/Amulya/metabat2/medium_quality_bins_all_samples; done
 done
 
